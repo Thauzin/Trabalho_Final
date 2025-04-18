@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 import Models.Funcionarios;
-import Services.Empresa;
 
 public class appEmpresa {
     public static void main(String[] args) {

@@ -1,11 +1,20 @@
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import DAO.ContaCorrenteDAO;
 import Models.ContaCorrente;
 import Models.ContaPoupanca;
+import DAO.ContaCorrenteDAO;
+
+import DAO.conexao; 
 
 
 public class app {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException{
         Scanner scanner = new Scanner(System.in);
+        Connection conn = conexao.getConnection(); 
+
 
         while (true){ 
         System.out.println("Escolha uma opção: ");
@@ -45,6 +54,8 @@ public class app {
                     }
                 }
                 conta1.exibirSaldo();
+                ContaCorrenteDAO dao = new ContaCorrenteDAO(conn);
+                dao.inserirConta(conta1); 
                 break;
 
                 case 2: 
@@ -81,6 +92,7 @@ public class app {
                     }
                 }
                 conta2.exibirSaldo();
+                
                 break;
         }
 

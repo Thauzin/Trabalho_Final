@@ -7,6 +7,10 @@ public abstract class ContaBancaria {
     protected String senha; 
     protected double saldo;
 
+    public String getTitular() {
+        return titular;
+    }
+
     public double getSaldo() {
         return saldo;
     }
