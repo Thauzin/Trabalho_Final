@@ -2,18 +2,18 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import Models.ContaCorrente;
+import Models.ContaPoupanca;
 
-public class ContaCorrenteDAO {
+public class ContaPoupancaDAO {
     
     private Connection connection;
 
-    public ContaCorrenteDAO(Connection connection) {
+    public ContaPoupancaDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public void inserirConta(ContaCorrente conta) throws SQLException {
-        String sql = "INSERT INTO conta_corrente (agencia, titular, NumeroConta, Senha, Saldo) VALUES (?, ?, ?, ?, ?)";
+    public void inserirConta(ContaPoupanca conta) throws SQLException {
+        String sql = "INSERT INTO conta_poupanca (agencia, titular, NumeroConta, Senha, Saldo) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, conta.getAgencia());

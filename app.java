@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import DAO.ContaCorrenteDAO;
+import DAO.ContaPoupancaDAO;
 import Models.ContaCorrente;
 import Models.ContaPoupanca;
 import DAO.ContaCorrenteDAO;
@@ -92,6 +93,8 @@ public class app {
                     }
                 }
                 conta2.exibirSaldo();
+                ContaPoupancaDAO dao2 = new ContaPoupancaDAO(conn);
+                dao2.inserirConta(conta2); 
                 
                 break;
         }
