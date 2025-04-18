@@ -3,26 +3,27 @@ package Models;
 public class ContaPoupanca extends ContaBancaria implements tributavel {
     private double rendimentoMensal = 0.05; 
     double valorSaque;
-    private double saldo = 0;
     private double depositar = 0;
+    
  
     public ContaPoupanca(int agencia, String titular, int NumeroConta, String senha){
-        super( agencia, titular, NumeroConta, senha); 
+        super(agencia, titular, NumeroConta, senha); 
     }
 
     @Override 
     public void depositar(double valor){
         depositar = valor;
+        saldo += valor; 
     }
 
     @Override
     public void saque(double valor){
-        if (valor > depositar){
+        if (valor > saldo){
             System.out.println("Saldo insuficiente! ");
         }
         else {
             valorSaque = valor;
-            saldo = depositar - valor;
+            saldo = saldo - valor;
         }
     }
 

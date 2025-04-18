@@ -5,6 +5,15 @@ public abstract class ContaBancaria {
     public String titular; 
     protected int NumeroConta; 
     protected String senha; 
+    protected double saldo;
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
 
     public int getAgencia() {
         return agencia;
