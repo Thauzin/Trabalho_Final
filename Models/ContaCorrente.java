@@ -1,20 +1,27 @@
-package ContaBancaria;
+package Models;
+
 public class ContaCorrente extends ContaBancaria {
 
     double tarifa = 10;
+    double depositar = 0;
 
-    public ContaCorrente(double depositar, int agencia, String titular, int NumeroConta, String senha){ 
-        super(depositar, agencia, titular, NumeroConta, senha); 
+    public ContaCorrente(int agencia, String titular, int NumeroConta, String senha){ 
+        super(agencia, titular, NumeroConta, senha); 
     }
 
     @Override 
     public void saque(double valor){
-        if (valor > getDepositar()){
+        if (valor > depositar){
             System.out.println("Saldo insuficiente");
         }
         else{
             tarifa = valor + 10;
         }
+    }
+
+    @Override 
+    public void depositar(double valor){
+        depositar = valor;
     }
 
     public void exibirSaldo(){

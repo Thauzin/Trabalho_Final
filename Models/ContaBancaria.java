@@ -1,15 +1,10 @@
-package ContaBancaria;
+package Models;
 
 public abstract class ContaBancaria {
-    protected double depositar;
     protected int agencia;
     public String titular; 
     protected int NumeroConta; 
     protected String senha; 
-
-    public double getDepositar() {
-        return depositar;
-    }
 
     public int getAgencia() {
         return agencia;
@@ -35,13 +30,7 @@ public abstract class ContaBancaria {
         this.senha = senha;
     }
 
-    public void setDepositar(double depositar) {
-        this.depositar = depositar;
-        
-    }
-
-    public ContaBancaria(double depositar, int agencia, String titular, int NumeroConta, String senha) {
-        this.depositar = depositar;
+    public ContaBancaria(int agencia, String titular, int NumeroConta, String senha) {
         this.agencia = agencia;
         this.titular = titular;
         this.NumeroConta = NumeroConta;
@@ -49,6 +38,7 @@ public abstract class ContaBancaria {
     }
 
     public abstract void saque(double valor);
+    public abstract void depositar(double valor);
     
 
     public abstract void exibirSaldo();

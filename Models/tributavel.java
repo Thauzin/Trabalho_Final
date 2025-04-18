@@ -1,4 +1,4 @@
-package ContaBancaria;
+package Models;
 public interface tributavel {
     double calcularIR();
 }

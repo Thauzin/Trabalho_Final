@@ -1,23 +1,28 @@
+package Models;
 
-
-package ContaBancaria;
 public class ContaPoupanca extends ContaBancaria implements tributavel {
     private double rendimentoMensal = 0.05; 
     double valorSaque;
-    double saldo = 0;
-    
-    public ContaPoupanca(double depositar,int agencia, String titular, int NumeroConta, String senha){
-        super(depositar, agencia, titular, NumeroConta, senha); 
+    private double saldo = 0;
+    private double depositar = 0;
+ 
+    public ContaPoupanca(int agencia, String titular, int NumeroConta, String senha){
+        super( agencia, titular, NumeroConta, senha); 
+    }
+
+    @Override 
+    public void depositar(double valor){
+        depositar = valor;
     }
 
     @Override
     public void saque(double valor){
-        if (valor > getDepositar()){
-            System.out.println("Saldo insuficiente");
+        if (valor > depositar){
+            System.out.println("Saldo insuficiente! ");
         }
         else {
             valorSaque = valor;
-            saldo = getDepositar() - valor;
+            saldo = depositar - valor;
         }
     }
 
@@ -30,14 +35,14 @@ public class ContaPoupanca extends ContaBancaria implements tributavel {
     public void exibirSaldo(){
         System.out.println("----------------------");
         System.out.println("Titular: " + this.titular);
-        System.out.println("Você tinha: R$ "+this.depositar);
+        System.out.println("Você tinha: R$ "+ depositar);
         System.out.println("Valor do saque: R$ "+ valorSaque); 
         System.out.println("O seu saldo é de: R$ "+ saldo);
     }
 
     @Override 
     public double calcularIR(){
-        return this.depositar * 0.05; 
+        return depositar * 0.05; 
     }
 
 }

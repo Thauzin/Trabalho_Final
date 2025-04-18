@@ -1,3 +1,4 @@
+package Models;
 
 
 public class Funcionarios {
@@ -30,7 +31,7 @@ public class Funcionarios {
         return this.nome + " - " + this.cargo + " - " + this.idade + " - " + this.salario;
     }
 
-    
+
     
     
 }

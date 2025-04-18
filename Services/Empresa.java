@@ -1,5 +1,9 @@
+package Services;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import Models.Funcionarios;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,9 +68,5 @@ public class Empresa {
             funcionarios.removeAll(paraRemover);
             System.out.println("Usuário(s) deletado(s) com sucesso!");
     }
-}
-
-  
-
- 
+    }
 }
