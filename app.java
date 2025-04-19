@@ -34,6 +34,7 @@ public class app {
         System.out.println("9 - Achar produto"); 
         System.out.println("10 - Demitir Funcionarios");
         System.out.println("11 - Deletar Produto");
+        System.out.println("12 - Fazer pagamento funcionarios");
         int opcao = scanner.nextInt();
 
         switch (opcao) {
@@ -226,7 +227,12 @@ public class app {
                 empresaDAO dao7 = new empresaDAO(conn);
                 dao7.deletarProduto(cod);
                 break;
+
+                case 12:
+                empresaDAO dao8 = new empresaDAO(conn);
+                dao8.pagarTodosFuncionarios();
         }
         }
     }
+    
 }

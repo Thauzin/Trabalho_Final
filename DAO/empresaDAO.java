@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import Models.ContaBancaria;
+import Models.ContaCorrente;
 import Models.Funcionarios;
 import Services.Empresa; 
 import Models.Produto;
@@ -100,4 +103,47 @@ public class empresaDAO {
             }
         }
     }
+
+    public void pagarTodosFuncionarios() throws SQLException {
+        String sql = "SELECT nome, salario FROM funcionario";
+    
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+    
+            while (rs.next()) {
+                String nome = rs.getString("nome");
+                double salario = rs.getDouble("salario");
+    
+                ContaBancaria conta = buscarContaPorNome(nome); 
+    
+                if (conta != null) {
+                    conta.depositar(salario);
+                    System.out.println("Salário de R$" + salario + " depositado para " + nome);
+                } else {
+                    System.out.println("Conta não encontrada para " + nome);
+                }
+            }
+        }
+    }
+    
+
+   public ContaBancaria buscarContaPorNome(String nome) throws SQLException {
+    String sql = "SELECT * FROM conta_corrente WHERE titular = ?"; 
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, nome);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            int agencia = rs.getInt("agencia");
+            int numeroConta = rs.getInt("numeroConta");
+            String senha = rs.getString("senha");
+            return new ContaCorrente(agencia, nome, numeroConta, senha); 
+        }
+    }
+    return null; 
+}
+
+    
+
 }
