@@ -1,26 +1,39 @@
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import DAO.ContaCorrenteDAO;
 import DAO.ContaPoupancaDAO;
 import Models.ContaCorrente;
 import Models.ContaPoupanca;
+import Models.Funcionarios;
 import DAO.ContaCorrenteDAO;
-
 import DAO.conexao; 
+import Services.Empresa;
+import DAO.empresaDAO;
+import Models.Produto;
+
 
 
 public class app {
     public static void main(String[] args) throws SQLException{
         Scanner scanner = new Scanner(System.in);
         Connection conn = conexao.getConnection(); 
+        Empresa empresa = new Empresa();
 
 
         while (true){ 
         System.out.println("Escolha uma opção: ");
         System.out.println("1 - Criar conta corrente ");
         System.out.println("2 - Criar conta poupança");
+        System.out.println("3 - Cadastrar Email");
+        System.out.println("4 - Cadastrar Funcionario");
+        System.out.println("5 - Cadastrar Produtos");
+        System.out.println("6 - Listar Email");
+        System.out.println("7 - Listar Funcionarios");
+        System.out.println("8 - Listar todos os Produtos"); 
+        System.out.println("9 - Achar produto"); 
+        System.out.println("10 - Demitir Funcionarios");
+        System.out.println("11 - Deletar Produto");
         int opcao = scanner.nextInt();
 
         switch (opcao) {
@@ -97,8 +110,123 @@ public class app {
                 dao2.inserirConta(conta2); 
                 
                 break;
-        }
 
+                case 3: 
+                empresa.cadastrarEmail();
+                break;
+
+                case 4: 
+                System.out.println("Cadastrar funcionario");
+                scanner.nextLine();
+                System.out.println("Nome do funcionario: ");
+                String nome = scanner.nextLine();
+                System.out.println("Idade: ");
+                int idade = scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Salario: ");
+                double salario = scanner.nextDouble();
+                scanner.nextLine();
+                System.out.println("Endereco: ");
+                String endereco = scanner.nextLine();
+                System.out.println("CPF: ");
+                String cpf = scanner.nextLine();
+                System.out.println("Cargo: ");
+                String cargo = scanner.nextLine();
+
+                Funcionarios funcionario = new Funcionarios(nome, idade, endereco, cargo, cpf, salario);
+                empresa.getFuncionarios().add(funcionario);
+                empresaDAO dao1 = new empresaDAO(conn);
+                dao1.inserirFuncionario(funcionario);
+
+                break;
+
+                case 5: 
+                System.out.println("Cadastrar Produto");
+                scanner.nextLine();
+                System.out.println("Codigo: ");
+                int codigo = scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Nome do produto: ");
+                String nomeProduto = scanner.nextLine();
+                System.out.println("Preco: ");
+                double preco = scanner.nextDouble();
+                System.out.println("Quantidade em estoque: ");
+                int estoque = scanner.nextInt();
+                Produto produto = new Produto(codigo, nomeProduto, preco, estoque);
+                empresa.getProdutos().put(codigo, produto); 
+                empresaDAO dao5 = new empresaDAO(conn);
+                dao5.inserirProduto(produto);
+
+                break;
+
+                case 6:
+                empresa.listarEmail(); 
+                break;
+
+                case 7: 
+                // empresa.listarFuncionarios();
+                empresaDAO dao3 = new empresaDAO(conn);
+                dao3.exibirFuncionario();
+                break;
+
+                case 8:
+                empresa.listarProdutos(); 
+                break;
+
+                case 9:
+                System.out.println("1 - Achar produto por nome");
+                System.out.println("2 - Achar produto por codigo");
+                System.out.println("3 - Achar produto por preço");
+                int opcao5 = scanner.nextInt();
+
+                if (opcao5 == 1) {
+                    System.out.println("Achar produto por nome");
+                    scanner.nextLine();
+                    System.out.println("Nome do produto: ");
+                    String nomeProduto2 = scanner.nextLine();
+                    empresa.ProdutoPorNome(nomeProduto2);
+                    break;
+                }
+
+                else if (opcao5 == 2){
+                    System.out.println("Achar produto por codigo");
+                    scanner.nextLine();
+                    System.out.println("Codigo do produto: ");
+                    int codigo2 = scanner.nextInt();
+                    empresa.ProdutoPorCodigo(codigo2);
+                    break;
+                }
+
+                else if (opcao5 == 3){
+                    System.out.println("Achar produto por preco");
+                    scanner.nextLine();
+                    System.out.println("Preco do produto: ");
+                    double preco2 = scanner.nextDouble();
+                    empresa.ProdutoPorPreco(preco2);
+                    break;
+                }
+
+                break;
+
+                case 10:
+                System.out.println("Demitir funcionario");
+                scanner.nextLine();
+                System.out.println("CPF do funcionario: ");
+                String cpf1 = scanner.nextLine();
+                //empresa.DeletarFuncionario(nome1);
+                empresaDAO dao4 = new empresaDAO(conn);
+                dao4.deletarFuncionario(cpf1);
+                break;
+
+                case 11:
+                System.out.println("Deletar Produto");
+                scanner.nextLine();
+                System.out.println("Codigo do produto: ");
+                String cod = scanner.nextLine();
+                empresaDAO dao7 = new empresaDAO(conn);
+                dao7.deletarProduto(cod);
+                break;
+        }
         }
     }
 }

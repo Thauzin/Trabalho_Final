@@ -1,13 +1,22 @@
 package Models;
 
 
-public class Funcionarios {
-    String nome;
-    String cargo; 
-    int idade; 
-    private double salario;
+public class Funcionarios extends pessoa implements tributavel {
+    protected String cargo;
+    protected double salario;
+    protected ContaBancaria contaSalario;
+
+    public Funcionarios(String nome, int idade, String endereco, String cpf, String cargo, double salario) { 
+        super(nome, idade, endereco, cpf);
+        this.cargo = cargo;
+        this.salario = salario;
+    }
 
     public double getSalario() {
+        return salario;
+    }
+
+    public double getSalario(double bonus) {
         return salario;
     }
 
@@ -15,20 +24,26 @@ public class Funcionarios {
         this.salario = salario;
     }
 
-    public Funcionarios(String nome, String cargo, int idade, double salario) {
-        this.nome = nome;
-        this.cargo = cargo;
-        this.idade = idade;
-        this.salario = salario;
+    public String getCargo() {
+        return cargo;
     }
 
-    public String getNome() {
-        return nome;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
-    
-    @Override
-    public String toString() {
-        return this.nome + " - " + this.cargo + " - " + this.idade + " - " + this.salario;
+
+    public ContaBancaria getContaSalario() {
+        return contaSalario;
+    }
+
+    public void setContaSalario(ContaBancaria contaSalario) {
+        this.contaSalario = contaSalario;
+        contaSalario.depositar(salario);
+    }
+
+    @Override 
+    public double calcularIR(){
+        return salario * 0.05; 
     }
 
 
